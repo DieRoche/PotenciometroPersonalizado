@@ -17,19 +17,15 @@ import time
 import sqlite3
 
 ################################### Variables ####################################### 
-#temperatura=int (10)
-#ph= int (7.5)
-#prto = StringVar
-#nombre_muestra = StringVar
 serial_data = ""
 db_name = 'database.db'
-ser = serial.Serial("COM3",9600)
+
 ####################################################################################
 ###########                                                              ###########
 ###########              METODOS PARA LA CONEXIÓN SERIAL                 ###########
 ###########                                                              ###########  
 ####################################################################################
-"""def cnct():
+def cnct():
     global prto
     global ser
     if (prto.get() !='') :
@@ -41,7 +37,7 @@ ser = serial.Serial("COM3",9600)
     else:
         messagebox.showwarning("Advertencia","Ingresar campos válidos")
         return 
-"""
+
 def lectura():
     global serial_data
     global ser
@@ -209,5 +205,6 @@ if __name__ == "__main__":
     window.geometry("465x480+400+200")
     window.configure(background="pale goldenrod")
     application=ventana1(window)
-    window.after(100, lectura)
+    #window.after(100, lectura)
     window.mainloop()
+    
