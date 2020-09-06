@@ -15,6 +15,7 @@ from PIL import Image
 from PIL import *
 import time
 import sqlite3
+import threading
 
 ################################### Variables ####################################### 
 serial_data = ""
@@ -33,7 +34,9 @@ def cnct():
         ser.setDTR(False)
         time.sleep(1)
         ser.flushInput()
-        ser.setDTR(True) 
+        ser.setDTR(True)
+        hilo_Lectura= threading.Thread(name="Receptor de bluetooth", target=lectura, daemon=True)
+        hilo_Lectura.start() 
     else:
         messagebox.showwarning("Advertencia","Ingresar campos válidos")
         return 
@@ -177,7 +180,7 @@ def ventana1 (window):
     nombre_muestra=tk.StringVar()
     tk.Entry(window,textvariable=prto,font=("comicsans",12)).place(x=130,y=80)
     tk.Entry(window,textvariable=nombre_muestra,font=("comicsans",12)).place(x=130,y=120)
-    #Button(window,command=cnct, text=" CONECTAR ",background="snow4",font=("comicsans",12)).place(x=347,y=70)
+    Button(window,command=cnct, text=" CONECTAR ",background="snow4",font=("comicsans",12)).place(x=347,y=70)
     Button(window,command=add_new,text=" REGISTRAR ",background="snow4",font=("comicsans",12)).place(x=347,y=105)    
     Button(window,command=edicion, text="      EDITAR     ",background="snow4",font=("comicsans",12)).place(x=345,y=140)
     Button(window,command=delete_this ,text="  REMOVER   ",background="snow4",font=("comicsans",12)).place(x=345,y=175)
@@ -207,4 +210,3 @@ if __name__ == "__main__":
     application=ventana1(window)
     #window.after(100, lectura)
     window.mainloop()
-    
