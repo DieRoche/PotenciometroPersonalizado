@@ -261,6 +261,7 @@ def ventana1 (window):
 if __name__ == "__main__":
     window=tk.Tk()
     window.title("Potenciometro USAC")
+    window.iconbitmap("icono.ico")
     window.geometry("465x480+400+200")
     window.configure(background="pale goldenrod")
     application=ventana1(window)
