@@ -21,10 +21,10 @@ import threading
 serial_data = ""
 db_name = 'database.db'
 datos = []
-ph = 0
-temperatura = 0
-ph_string="0"
-temperatura_string="0"
+#ph = 0.0
+#temperatura = 0.0
+#ph_string="0.0"
+#temperatura_string="0.0"
 
 ####################################################################################
 ###########                                                              ###########
@@ -66,7 +66,7 @@ def lectura():
     result = []
     flag = False
     while(1):
-        time.sleep(2.5)
+        time.sleep(0.1)
         ser.write(b"1")
         serial_data = ser.read()        
         data = str(serial_data.decode())
@@ -78,7 +78,7 @@ def lectura():
                 flag = False
                 result = ""
                 guardar = ""
-            else:
+            if data!="h" and flag==True:
                 if type(guardar) == str:
                     guardar += data
                     result = guardar.split(",")
@@ -90,7 +90,7 @@ def lectura():
                         print("temp: " + result[0])
                         temperatura=result[0]
                         if len(result) > 2:
-                            ph=result[1] 
+                            ph=result[1]
                             print("PH: " + result[1])
         data = "0"
         
@@ -99,8 +99,8 @@ def actualizacionlabel():
     global temperatura
     global ph_string
     global temperatura_string
-    ph_string.set(str(ph))
-    temperatura_string.set(str(ph))
+    ph_string.set(ph)
+    temperatura_string.set(temperatura)
   
 ####################################################################################
 ###########                                                              ###########
@@ -136,7 +136,7 @@ def add_new():
 
     if validation():
         query='INSERT INTO Muestras VALUES(NULL,?,?,?)'
-        parametros=(nombre_muestra.get(),ph.get(),temperatura.get())
+        parametros=(nombre_muestra.get(),ph,temperatura)
         run_query(query,parametros)
     else:
         messagebox.showwarning("Advertencia","Ingresar un nombre válido")
@@ -180,6 +180,7 @@ def edicion():
     nombre_edicion=tabla.item(tabla.selection())["values"][0]
     ventana_edicion = Toplevel()
     ventana_edicion.title = "Edición del nombre"
+    ventana_edicion.iconbitmap("icono.ico")
     ventana_edicion.geometry("400x175+450+250")
     ventana_edicion.configure(background="pale goldenrod")
     Label(ventana_edicion,text="Edición de nombre", background="pale goldenrod",font=("comicsans",18)).place(x=25,y=20)
