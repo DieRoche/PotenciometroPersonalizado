@@ -66,7 +66,7 @@ def lectura():
     result = []
     flag = False
     while(1):
-        time.sleep(0.1)
+        time.sleep(0.015)
         ser.write(b"1")
         serial_data = ser.read()        
         data = str(serial_data.decode())
